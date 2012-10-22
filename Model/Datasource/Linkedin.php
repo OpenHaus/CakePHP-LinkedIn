@@ -17,6 +17,17 @@ class Linkedin extends ApisSource {
 	 */
 	public $description = 'Linkedin DataSource Driver';
 
+
+	// Corp-o-rate change
+	public function __construct() {
+        $oConfig = new DATABASE_CONFIG();
+        $config = $oConfig->linkedin;
+	    $config['oauth_token'] = CakeSession::read('OAuth.linkedin.oauth_token');
+	    $config['oauth_token_secret'] = CakeSession::read('OAuth.linkedin.oauth_token_secret');
+
+	    parent::__construct($config);
+	}
+
 	/**
 	 * Lets you use the fields in Model::find() for linkedin
 	 *
@@ -87,6 +98,7 @@ class Linkedin extends ApisSource {
 			$request['uri']['path'] .= $this->fieldSelectors($this->fields);
 			unset($this->fields);
 		}
+
 		return $request;
 	}
 }
